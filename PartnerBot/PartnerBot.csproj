@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>dotnet-PartnerBot-58F7A749-A62E-4328-982A-8BF6B85CFC30</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Discord.Net.Core" Version="2.1.0" />
+    <PackageReference Include="Discord.Net.Rest" Version="2.1.0" />
+    <PackageReference Include="Discord.Net.WebSocket" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0-preview5.19227.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.7.9" />
+    <PackageReference Include="Qmmands" Version="3.0.0-nightly-00189" />
+  </ItemGroup>
+</Project>
