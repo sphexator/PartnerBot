@@ -36,10 +36,5 @@ namespace PartnerBot.Entities
             if (!color.HasValue) color = Color.Purple.RawValue;
             await Channel.SendMessageAsync(null, false, embed.Build());
         }
-
-        public async Task ErrorAsync(string content)
-        {
-
-        }
     }
 }
