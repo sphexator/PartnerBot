@@ -25,7 +25,7 @@ namespace PartnerBot.Modules
         [Command("partner")]
         [Description("Replies with information on how to perform 'yes'")]
         [RequiredContextType(ContextType.Dm)]
-        public async Task PartnerAsync() => await Context.ReplyAsync(_config["response"]);
+        public async Task PartnerAsync() => await Context.ReplyAsync(_config["Response"]);
 
         [Name("Partner")]
         [Command("partner")]

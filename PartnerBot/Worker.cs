@@ -23,12 +23,22 @@ namespace PartnerBot
             _client = client;
             _config = config;
             _command = command;
-            _client.Log += message =>
-            {
-                _logger.Log(LogSevToLogLevel(message.Severity), message.Message, message.Exception);
-                return Task.CompletedTask;
-            };
+
+            _client.Log += ClientOnLog;
+            _command.CommandErrored += OnCommandError;
             _client.Ready += () => _client.SetGameAsync("DM ;partner to partner");
+        }
+
+        private Task OnCommandError(CommandErroredEventArgs log)
+        {
+           // _logger.Log();
+            return Task.CompletedTask;
+        }
+
+        private Task ClientOnLog(LogMessage log)
+        {
+            _logger.Log(LogSevToLogLevel(log.Severity), log.Message, log.Exception);
+            return Task.CompletedTask;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

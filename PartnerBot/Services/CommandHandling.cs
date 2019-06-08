@@ -14,16 +14,7 @@ namespace PartnerBot.Services
             _client = client;
             _command = command;
 
-            _client.MessageReceived += x =>
-            {
-                _ = ClientOnMessageReceived(x);
-                return Task.CompletedTask;
-            };
-        }
-
-        public void Initialize()
-        {
-
+            _client.MessageReceived += ClientOnMessageReceived;
         }
 
         private async Task ClientOnMessageReceived(SocketMessage arg)

@@ -2,6 +2,7 @@ using Discord;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PartnerBot.Services;
 using Qmmands;
 
 namespace PartnerBot
@@ -15,12 +16,9 @@ namespace PartnerBot
                 .ConfigureServices(services =>
                 {
                     services.AddHostedService<Worker>();
-                    services.AddSingleton(new DiscordSocketClient(new DiscordSocketConfig
-                    {
-                        AlwaysDownloadUsers = true,
-                        LogLevel = LogSeverity.Info,
-                        MessageCacheSize = 10
-                    }));
+                    services.AddSingleton<CommandHandling>();
+                    services.AddSingleton(new DiscordSocketClient(new DiscordSocketConfig 
+                        { LogLevel = LogSeverity.Info }));
                     services.AddSingleton(new CommandService(new CommandServiceConfiguration 
                         { DefaultRunMode = RunMode.Parallel }));
                 });
