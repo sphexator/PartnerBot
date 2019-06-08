@@ -4,9 +4,9 @@ using Discord.WebSocket;
 
 namespace PartnerBot.Entities
 {
-    public class CommandContext : Qmmands.CommandContext
+    public class SocketCommandContext : Qmmands.CommandContext
     {
-        public CommandContext(DiscordSocketClient client, SocketUserMessage msg, SocketUser user)
+        public SocketCommandContext(DiscordSocketClient client, SocketUserMessage msg, SocketUser user)
         {
             Client = client;
             Message = msg;

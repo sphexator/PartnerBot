@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Discord.WebSocket;
 using PartnerBot.Entities;
 using Qmmands;
 using CheckAttribute = PartnerBot.Entities.CheckAttribute;
-using CommandContext = PartnerBot.Entities.CommandContext;
 
 namespace PartnerBot.Preconditions
 {
@@ -12,18 +12,17 @@ namespace PartnerBot.Preconditions
         private readonly ContextType _type;
         public RequiredContextType(ContextType type) => _type = type;
 
-        public override ValueTask<CheckResult> CheckAsync(CommandContext context, IServiceProvider provider)
+        public override ValueTask<CheckResult> CheckAsync(SocketCommandContext context, IServiceProvider provider)
         {
             switch (_type)
             {
                 case ContextType.Guild:
-                    return context.Guild == null 
-                        ? CheckResult.Unsuccessful("Command is required to be ran in a guild")
-                        : CheckResult.Successful;
+                    if (context.Channel is SocketTextChannel) return CheckResult.Successful;
+                    else return CheckResult.Unsuccessful("Command is required to be ran in a guild");
                 case ContextType.Dm:
-                    return context.Guild == null 
-                        ? CheckResult.Successful 
-                        : CheckResult.Unsuccessful("Command is required to be ran in a dm");
+                    if (context.Channel is SocketDMChannel)
+                        return CheckResult.Successful;
+                    else return CheckResult.Unsuccessful("Command is required to be ran in a DM"); 
                 default:
                     throw new ArgumentOutOfRangeException();
             }

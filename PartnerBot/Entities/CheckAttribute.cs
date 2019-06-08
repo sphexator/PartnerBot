@@ -6,9 +6,9 @@ namespace PartnerBot.Entities
 {
     public abstract class CheckAttribute : Qmmands.CheckAttribute
     {
-        public override ValueTask<CheckResult> CheckAsync(Qmmands.CommandContext context, IServiceProvider provider)
-            => CheckAsync((CommandContext) context, provider);
+        public override ValueTask<CheckResult> CheckAsync(CommandContext context, IServiceProvider provider)
+            => CheckAsync((SocketCommandContext) context, provider);
 
-        public abstract ValueTask<CheckResult> CheckAsync(CommandContext context, IServiceProvider provider);
+        public abstract ValueTask<CheckResult> CheckAsync(SocketCommandContext context, IServiceProvider provider);
     }
 }

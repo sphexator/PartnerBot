@@ -3,23 +3,16 @@ using System.Threading.Tasks;
 using Discord;
 using Microsoft.Extensions.Configuration;
 using PartnerBot.Entities;
+using PartnerBot.Extensions;
 using PartnerBot.Preconditions;
 using Qmmands;
-using CommandContext = PartnerBot.Entities.CommandContext;
 
 namespace PartnerBot.Modules
 {
-    public class PartnerModule : ModuleBase<CommandContext>
+    public class PartnerModule : ModuleBase<SocketCommandContext>
     {
         private readonly IConfiguration _config;
-        private readonly ulong _guildId;
-        private readonly ulong _channelId;
-        public PartnerModule(IConfiguration config)
-        {
-            _config = config;
-            _guildId = ulong.Parse(_config["GuildId"]);
-            _channelId = ulong.Parse(_config["ChannelId"]);
-        }
+        public PartnerModule(IConfiguration config) => _config = config;
 
         [Name("Partner")]
         [Command("partner")]
@@ -27,14 +20,14 @@ namespace PartnerBot.Modules
         [RequiredContextType(ContextType.Dm)]
         public async Task PartnerAsync() => await Context.ReplyAsync(_config["Response"]);
 
-        [Name("Partner")]
-        [Command("partner")]
+        [Name("Apply")]
+        [Command("apply")]
         [Description("Yes")]
         [RequiredContextType(ContextType.Dm)]
         public async Task PartnerAsync([Remainder] string content)
         {
-            var guild = Context.Client.GetGuild(_guildId);
-            var channel = guild.GetTextChannel(_channelId);
+            var guild = Context.Client.GetGuild(ulong.Parse(_config["GuildId"]));
+            var channel = guild.GetTextChannel(ulong.Parse(_config["ChannelId"]));
             if (channel == null)
             {
                 return;
@@ -42,10 +35,11 @@ namespace PartnerBot.Modules
 
             await channel.SendMessageAsync(null, false, new EmbedBuilder
             {
-                Author = new EmbedAuthorBuilder { Name = Context.User.Username, IconUrl = Context.User.GetAvatarUrl() },
+                Author = new EmbedAuthorBuilder { Name = Context.User.Username, IconUrl = Context.User.GetAvatar() },
                 Description = $"Partner request by: {Context.User.Mention}\n" +
                               $"{content}",
-                Timestamp = DateTimeOffset.UtcNow
+                Timestamp = DateTimeOffset.UtcNow,
+                Color = Color.Purple
             }.Build());
         }
     }

@@ -15,12 +15,12 @@ namespace PartnerBot
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices(services =>
                 {
-                    services.AddHostedService<Worker>();
-                    services.AddSingleton<CommandHandling>();
-                    services.AddSingleton(new DiscordSocketClient(new DiscordSocketConfig 
+                    services.AddSingleton(new DiscordSocketClient(new DiscordSocketConfig
                         { LogLevel = LogSeverity.Info }));
-                    services.AddSingleton(new CommandService(new CommandServiceConfiguration 
+                    services.AddSingleton(new CommandService(new CommandServiceConfiguration
                         { DefaultRunMode = RunMode.Parallel }));
+                    services.AddSingleton<CommandHandling>();
+                    services.AddHostedService<Worker>();
                 });
     }
 }
