@@ -41,6 +41,7 @@ namespace PartnerBot.Modules
                 Timestamp = DateTimeOffset.UtcNow,
                 Color = Color.Purple
             }.Build());
+            await Context.ReplyAsync("Message sent!", Color.Green.RawValue);
         }
     }
 }
