@@ -31,6 +31,12 @@ namespace PartnerBot.Entities
             }.Build());
         }
 
+        public async Task ReplyAsync(EmbedBuilder embed, uint? color = null)
+        {
+            if (!color.HasValue) color = Color.Purple.RawValue;
+            await Channel.SendMessageAsync(null, false, embed.Build());
+        }
+
         public async Task ErrorAsync(string content)
         {
 

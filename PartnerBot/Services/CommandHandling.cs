@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Discord.WebSocket;
 using Qmmands;
 
-namespace PartnerBot.Service
+namespace PartnerBot.Services
 {
     public class CommandHandling
     {

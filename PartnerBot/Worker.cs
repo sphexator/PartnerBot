@@ -24,7 +24,7 @@ namespace PartnerBot
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await _client.LoginAsync(TokenType.Bot, _config["token"]);
+            await _client.LoginAsync(TokenType.Bot, _config["Token"]);
             await _client.StartAsync();
             await Task.Delay(-1, stoppingToken);
         }
